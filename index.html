@@ -10,7 +10,7 @@
 	<div class="valueInput hide-on-mobile">
 		<div ng-controller="ExpenseCtrl as ctrl">
 		<h1>Expense Tracker</h1>
-			<form id="expenseForm" novalidate ng-submit="ctrl.addExpense(ctrl.expense)">
+			<form id="expenseForm" name="ctrl.expenseForm" novalidate ng-submit="ctrl.addExpense(ctrl.expense)">
 				<p>Name of expense:</p>
 				<input type="text" ng-model="ctrl.expense.name" required>
 				<p>Amount:</p>
@@ -19,7 +19,7 @@
 			</form>
 	  </div>
 	  <div ng-controller="IncomeCtrl as ctrl">
-			<form id="incomeForm" novalidate ng-submit="ctrl.addIncome(ctrl.income)">
+			<form id="incomeForm" name="ctrl.incomeForm" novalidate ng-submit="ctrl.addIncome(ctrl.income)">
 				<p>Name of Income:</p>
 				<input type="text" ng-model="ctrl.income.name" required>
 				<p>Amount:</p>

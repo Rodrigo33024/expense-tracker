@@ -2,13 +2,16 @@ var app = angular.module('expenses', []);
 
 app.controller('ExpenseCtrl',['expenseService', function(expenseService) {
 	var vm = this;
-	
+
 	vm.expense = {
 		name: "",
 		amount: ""
 	};
 
 	vm.addExpense = function(expense) {
+		if (vm.expenseForm.$invalid) {
+      return;
+		}
 		expenseService.addExpense(expense);
 		vm.expense = {};
 	};
@@ -17,13 +20,16 @@ app.controller('ExpenseCtrl',['expenseService', function(expenseService) {
 
 app.controller('IncomeCtrl',['incomeService', function(incomeService) {
 	var vm = this;
-	
+
 	vm.income = {
 		name: "",
 		amount: ""
 	};
 
 	vm.addIncome = function(income) {
+		if (vm.incomeForm.$invalid) {
+			return;
+		}
 		incomeService.addIncome(income);
 		vm.income = {};
 	};
@@ -35,7 +41,7 @@ app.controller('HandleCtrl', [function() {
 
 	vm.expenseVisible = false;
 	vm.incomeVisible = false;
-	
+
 	vm.showExpense = function() {
 		vm.incomeVisible = false;
 		vm.expenseVisible = true;
@@ -63,7 +69,7 @@ app.factory('summaryService', ['expenseService', 'incomeService', '$rootScope', 
 
 	expenseService.on('expense-added', updateTotals);
 	incomeService.on('income-added', updateTotals);
-	
+
 	return {
 		updateTotals: updateTotals,
 		on: function(evt, cb) {
@@ -84,7 +90,7 @@ app.controller('OutputCtrl', ['$scope', 'summaryService', function($scope,summar
 		vm.totalExpenses = totals.totalExpenses;
 		vm.netIncome = totals.netIncome;
 		vm.grossIncome = totals.grossIncome;
-  }	
+  }
 
 	$scope.$on('$destroy', function() {
 		summaryHandler();
